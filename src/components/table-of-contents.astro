@@ -1,0 +1,24 @@
+---
+interface Props {
+	headings: { depth: number; slug: string; text: string }[];
+}
+const { headings } = Astro.props;
+---
+
+<nav class="sticky top-8 self-start">
+	<ul class="flex flex-col gap-1">
+		{
+			headings.map((heading) => (
+				<li>
+					<a
+						href={`#${heading.slug}`}
+						style={`margin-left:${heading.depth * 24}px`}
+						class="font-bold opacity-50 hover:underline hover:opacity-100"
+					>
+						{heading.text}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>

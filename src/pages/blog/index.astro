@@ -1,0 +1,46 @@
+---
+import NavBar from "@/components/nav-bar.astro";
+import BaseLayout from "@/layouts/base-layout.astro";
+import { ChevronRight } from "@lucide/astro";
+
+const posts = Object.values(
+	import.meta.glob("@/pages/blog/**/*.md", { eager: true }),
+).sort(
+	(a: any, b: any) =>
+		new Date(b.frontmatter.date).getTime() -
+		new Date(a.frontmatter.date).getTime(),
+);
+---
+
+<BaseLayout title="Blog">
+	<NavBar />
+	<ul class="mx-auto flex w-sm flex-col">
+		{
+			posts.map((post: any) => (
+				<li>
+					<a href={post.url} class="group">
+						<div class="-mx-4 flex flex-row items-center justify-between rounded-md p-4 group-hover:bg-gray-500/10">
+							<div>
+								<p class="font-semibold">
+									{post.frontmatter.title}
+								</p>
+								<p class="text-sm opacity-50">
+									{new Date(
+										post.frontmatter.date,
+									).toLocaleDateString("en-US", {
+										day: "numeric",
+										month: "long",
+										year: "numeric",
+									})}
+								</p>
+							</div>
+							<div>
+								<ChevronRight class="stroke-muted-foreground group-hover:stroke-foreground" />
+							</div>
+						</div>
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</BaseLayout>

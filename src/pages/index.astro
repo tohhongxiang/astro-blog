@@ -1,16 +1,61 @@
 ---
+import NavBar from "@/components/nav-bar.astro";
+import BaseLayout from "@/layouts/base-layout.astro";
+import { ChevronRight } from "@lucide/astro";
+import { buttonVariants } from "@/components/ui/button";
 
+const posts = Object.values(import.meta.glob("./blog/**/*.md", { eager: true }))
+	.sort(
+		(a: any, b: any) =>
+			new Date(b.frontmatter.date).getTime() -
+			new Date(a.frontmatter.date).getTime(),
+	)
+	.slice(0, 3);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="THX">
+	<div class="flex h-full flex-col items-center gap-16 pt-16">
+		<div class="flex flex-col items-center justify-center gap-4">
+			<img src="images/hero.png" class="h-48" alt="hero" />
+			<p class="px-4 text-center text-sm opacity-50">
+				A minimalist approach to anime appreciation, analysis, and art.
+			</p>
+		</div>
+		<NavBar />
+		<div class="flex w-full flex-col px-8 sm:w-sm sm:px-0">
+			<h1 class="mb-2 font-light uppercase">Latest Posts</h1>
+			<ul class="mb-4 flex flex-col">
+				{
+					posts.map((post: any) => (
+						<li>
+							<a href={post.url} class="group">
+								<div class="-mx-4 flex flex-row items-center justify-between rounded-md p-4 group-hover:bg-gray-500/10">
+									<div>
+										<p class="line-clamp-1 font-semibold">
+											{post.frontmatter.title}
+										</p>
+										<p class="text-sm opacity-50">
+											{new Date(
+												post.frontmatter.date,
+											).toLocaleDateString("en-US", {
+												day: "numeric",
+												month: "long",
+												year: "numeric",
+											})}
+										</p>
+									</div>
+									<div>
+										<ChevronRight class="stroke-muted-foreground group-hover:stroke-foreground" />
+									</div>
+								</div>
+							</a>
+						</li>
+					))
+				}
+			</ul>
+			<a href="/blog" class={buttonVariants({ variant: "outline" })}
+				>More</a
+			>
+		</div>
+	</div>
+</BaseLayout>

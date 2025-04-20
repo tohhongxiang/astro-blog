@@ -1,0 +1,36 @@
+---
+import NavBar from "@/components/nav-bar.astro";
+import BaseLayout from "./base-layout.astro";
+import TableOfContents from "@/components/table-of-contents.astro";
+import { Button } from "@/components/ui/button";
+import { ChevronUp } from "@lucide/astro";
+
+const { frontmatter, headings } = Astro.props;
+
+const title = frontmatter.title ?? headings[0].text;
+---
+
+<BaseLayout title={title}>
+	<NavBar />
+	<div class="flex px-4 py-8">
+		<div class="prose mx-auto">
+			<slot />
+			<div class="p-4"></div>
+		</div>
+		<TableOfContents headings={headings} />
+	</div>
+	<Button
+		id="scroll-to-top"
+		className="fixed right-8 bottom-12 cursor-pointer"
+		><ChevronUp />
+	</Button>
+</BaseLayout>
+<script is:inline>
+	const handleClick = () => {
+		window.scrollTo(0, 0);
+	};
+
+	document
+		.getElementById("scroll-to-top")
+		?.addEventListener("click", handleClick);
+</script>

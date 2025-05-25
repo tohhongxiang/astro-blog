@@ -1,17 +1,22 @@
 ---
 layout: "@/layouts/blog-layout.astro"
 title: Markdown Test!
-description: Testing
+description: How applying Nordic simplicity principles to your digital habits can lead to improved focus and wellbeing. Discover the peace that comes with intentional digital consumption.
 date: 2025-04-03
 ---
-
 # Markdown syntax guide
 
 ## Headers
 
+This is some text inside the section
+
 # This is a Heading h1
 
+This is some text inside the section
+
 ## This is a Heading h2
+
+This is some text inside the section
 
 ###### This is a Heading h6
 

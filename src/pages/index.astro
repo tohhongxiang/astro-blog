@@ -1,61 +1,55 @@
 ---
-import NavBar from "@/components/nav-bar.astro";
 import BaseLayout from "@/layouts/base-layout.astro";
-import { ChevronRight } from "@lucide/astro";
-import { buttonVariants } from "@/components/ui/button";
+import { ModeToggle } from "@/components/mode-toggle";
+import { formatDate } from "@/lib/format-date";
 
-const posts = Object.values(import.meta.glob("./blog/**/*.md", { eager: true }))
-	.sort(
-		(a: any, b: any) =>
-			new Date(b.frontmatter.date).getTime() -
-			new Date(a.frontmatter.date).getTime(),
-	)
-	.slice(0, 3);
+const posts = Object.values(
+	import.meta.glob("./blog/**/*.md", { eager: true }),
+).sort(
+	(a: any, b: any) =>
+		new Date(b.frontmatter.date).getTime() -
+		new Date(a.frontmatter.date).getTime(),
+);
 ---
 
 <BaseLayout title="THX">
-	<div class="flex h-full flex-col items-center gap-16 pt-16">
-		<div class="flex flex-col items-center justify-center gap-4">
-			<img src="images/hero.png" class="h-48" alt="hero" />
-			<p class="px-4 text-center text-sm opacity-50">
-				A minimalist approach to anime appreciation, analysis, and art.
+	<div class="mx-auto flex max-w-prose flex-col gap-12">
+		<section class="pt-16">
+			<div class="flex flex-row justify-between">
+				<h1
+					class="mb-4 text-4xl font-extrabold tracking-wide"
+					transition:name="site-title"
+				>
+					THX's Blog
+				</h1>
+				<div transition:name="mode-toggle">
+					<ModeToggle client:load />
+				</div>
+			</div>
+			<p class="text-muted-foreground">
+				A blog about random thoughts I have
 			</p>
-		</div>
-		<NavBar />
-		<div class="flex w-full flex-col px-8 sm:w-sm sm:px-0">
-			<h1 class="mb-2 font-light uppercase">Latest Posts</h1>
-			<ul class="mb-4 flex flex-col">
-				{
-					posts.map((post: any) => (
-						<li>
-							<a href={post.url} class="group">
-								<div class="-mx-4 flex flex-row items-center justify-between rounded-md p-4 group-hover:bg-gray-500/10">
-									<div>
-										<p class="line-clamp-1 font-semibold">
-											{post.frontmatter.title}
-										</p>
-										<p class="text-sm opacity-50">
-											{new Date(
-												post.frontmatter.date,
-											).toLocaleDateString("en-US", {
-												day: "numeric",
-												month: "long",
-												year: "numeric",
-											})}
-										</p>
-									</div>
-									<div>
-										<ChevronRight class="stroke-muted-foreground group-hover:stroke-foreground" />
-									</div>
-								</div>
-							</a>
-						</li>
-					))
-				}
-			</ul>
-			<a href="/blog" class={buttonVariants({ variant: "outline" })}
-				>More</a
-			>
-		</div>
+		</section>
+		<section>
+			<h2 class="mb-2 text-2xl font-bold">Posts</h2>
+			{
+				posts.map((post: any) => (
+					<div class="flex flex-row items-baseline gap-4 py-2">
+						<time
+							datetime={formatDate(post.frontmatter.date)}
+							class="text-muted-foreground font-mono"
+						>
+							{formatDate(post.frontmatter.date)}
+						</time>
+						<a
+							href={post.url}
+							class="font-semibold hover:underline"
+						>
+							{post.frontmatter.title}
+						</a>
+					</div>
+				))
+			}
+		</section>
 	</div>
 </BaseLayout>

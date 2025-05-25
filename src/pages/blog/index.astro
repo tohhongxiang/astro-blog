@@ -1,5 +1,4 @@
 ---
-import NavBar from "@/components/nav-bar.astro";
 import BaseLayout from "@/layouts/base-layout.astro";
 import { ChevronRight } from "@lucide/astro";
 
@@ -13,7 +12,6 @@ const posts = Object.values(
 ---
 
 <BaseLayout title="Blog">
-	<NavBar />
 	<ul class="mx-auto flex w-sm flex-col">
 		{
 			posts.map((post: any) => (

@@ -7,7 +7,7 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"prepare": "husky"
+		"prepare": "npx husky"
 	},
 	"dependencies": {
 		"@astrojs/react": "^4.2.4",

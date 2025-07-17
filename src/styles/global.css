@@ -2,6 +2,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+.expressive-code {
+	margin-bottom: 1.25rem; /* Follow tailwind's paragraph sizing */
+}
+
 span.icon-link::before {
 	content: "#";
 	position: absolute;

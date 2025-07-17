@@ -1,15 +1,15 @@
 // @ts-check
+import react from "@astrojs/react";
+import tailwindcss from "@tailwindcss/vite";
+import expressiveCode from "astro-expressive-code";
 import { defineConfig } from "astro/config";
-import remarkMath from "remark-math";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeExternalLinks from "rehype-external-links";
 import rehypeKatex from "rehype-katex";
 import rehypeMermaid from "rehype-mermaid";
-import tailwindcss from "@tailwindcss/vite";
 import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import react from "@astrojs/react";
+import remarkMath from "remark-math";
 import { visit } from "unist-util-visit";
-
-import expressiveCode from "astro-expressive-code";
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,7 +17,7 @@ export default defineConfig({
 		react(),
 		expressiveCode({
 			themes: ["one-dark-pro", "one-light"],
-			themeCssSelector: (theme) => `[data-code-theme='${theme.name}']`,
+			themeCssSelector: (theme) => `[data-code-theme='${theme.name}']`
 		}),
 	],
 	vite: {
@@ -26,6 +26,13 @@ export default defineConfig({
 	markdown: {
 		remarkPlugins: [setLayout, remarkMath],
 		rehypePlugins: [
+			[
+				rehypeExternalLinks,
+				{
+					rel: ["nofollow", "noopener", "noreferrer"],
+					target: ["_blank"],
+				},
+			],
 			[rehypeKatex, {}],
 			[
 				rehypeMermaid,

@@ -15,7 +15,7 @@
 	"importOrderSortSpecifiers": true,
 	"overrides": [
 		{
-			"files": "*.astro",
+			"files": ["**/*.astro"],
 			"options": {
 				"parser": "astro"
 			}

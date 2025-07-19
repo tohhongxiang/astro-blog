@@ -2,10 +2,10 @@
 import BaseLayout from "@/layouts/base-layout.astro";
 import Header from "@/components/header/index.astro";
 import type { Post } from "@/types";
-import PostItem from "@/components/post-item";
+import NoteItem from "@/components/note-item";
 
 const notes = Object.values(
-	import.meta.glob("@/pages/blog/**/*.md", { eager: true }),
+	import.meta.glob("@/pages/notes/**/*.md", { eager: true }),
 ).sort(
 	(a: any, b: any) =>
 		new Date(b.frontmatter.date).getTime() -
@@ -17,13 +17,11 @@ const notes = Object.values(
 	<div class="mx-auto flex max-w-prose flex-col gap-12">
 		<section class="pt-16">
 			<Header
-				title="THX's Posts"
-				description="Random things I think about"
+				title="THX's Notes"
+				description="Notes from learning random stuff"
 			/>
-		</section>
-		<section>
-			<h2 class="mb-2 text-2xl font-bold">All Posts</h2>
-			{notes.map((note) => <PostItem post={note} />)}
+			<h2 class="mb-2 text-2xl font-bold">All Notes</h2>
+			{notes.map((note) => <NoteItem note={note} />)}
 		</section>
 	</div>
 </BaseLayout>

@@ -3,6 +3,7 @@ import BaseLayout from "@/layouts/base-layout.astro";
 import Header from "@/components/header/index.astro";
 import PostItem from "@/components/post-item";
 import type { Post } from "@/types";
+import NoteItem from "@/components/note-item";
 
 const posts = Object.values(
 	import.meta.glob("./blog/**/*.md", { eager: true }),
@@ -46,7 +47,7 @@ const notes = Object.values(
 					<a href="/notes">View more</a>
 				</p>
 			</div>
-			{notes.map((post: Post) => <PostItem post={post} />)}
+			{notes.map((note: Post) => <NoteItem note={note} />)}
 		</section>
 	</div>
 </BaseLayout>

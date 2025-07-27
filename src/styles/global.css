@@ -6,6 +6,22 @@
 	margin-bottom: 1.25rem; /* Follow tailwind's paragraph sizing */
 }
 
+/* Allow horizontal scrolling for long lines */
+.katex-display {
+	overflow: auto hidden;
+}
+.katex-display > .katex {
+	white-space: normal;
+}
+/* Add space between broken lines: */
+.katex-display > .base {
+	margin: 0.25em 0;
+}
+/* Compensate by reducing space around display math */
+.katex-display {
+	margin: 0.5em 0;
+}
+
 span.icon-link::before {
 	content: "#";
 	position: absolute;

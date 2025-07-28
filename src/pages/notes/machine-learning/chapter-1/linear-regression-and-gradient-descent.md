@@ -342,8 +342,6 @@ $$
     \end{bmatrix}
 $$
 
-
-
 # Proofs Section
 
 ## $(AB)^T = B^T A^T$ for $A \in \mathbb{R}^{m \times n}$, $B \in \mathbb{R}^{n \times p}$
@@ -482,3 +480,7 @@ $$
 $$
 
 Note that the $k$-th entry of $\nabla_x f(x)$ is just the inner product of the $k$-th row of $A$ and $x$. Therefore, $\nabla_x x^T A x = 2 Ax$. This is analogous to the single-variable calculus version that $\frac{\partial}{\partial x} ax^2 = 2ax$.
+
+# Additional Resources
+
+1. [Linear Regression, Clearly Explained](https://www.youtube.com/watch?v=7ArmBVF2dCs)

@@ -2,24 +2,16 @@
 import BaseLayout from "@/layouts/base-layout.astro";
 import Header from "@/components/header/index.astro";
 import PostItem from "@/components/post-item";
-import type { Post } from "@/types";
 import NoteItem from "@/components/note-item";
+import { getCollection } from "astro:content";
 
-const posts = Object.values(
-	import.meta.glob("./blog/**/*.md", { eager: true }),
-).sort(
-	(a: any, b: any) =>
-		new Date(b.frontmatter.date).getTime() -
-		new Date(a.frontmatter.date).getTime(),
-) as Post[];
+const posts = (await getCollection("blog")).sort((a, b) => {
+	return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
 
-const notes = Object.values(
-	import.meta.glob("./notes/**/*.md", { eager: true }),
-).sort(
-	(a: any, b: any) =>
-		new Date(b.frontmatter.date).getTime() -
-		new Date(a.frontmatter.date).getTime(),
-) as Post[];
+const notes = (await getCollection("notes")).sort((a, b) => {
+	return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
 ---
 
 <BaseLayout title="THX">
@@ -37,8 +29,7 @@ const notes = Object.values(
 					<a href="/blog">View more</a>
 				</p>
 			</div>
-
-			{posts.map((post: Post) => <PostItem post={post} />)}
+			{posts.map((post) => <PostItem post={post} />)}
 		</section>
 		<section>
 			<div class="flex flex-row items-baseline justify-start gap-4">
@@ -47,7 +38,7 @@ const notes = Object.values(
 					<a href="/notes">View more</a>
 				</p>
 			</div>
-			{notes.map((note: Post) => <NoteItem note={note} />)}
+			{notes.map((note) => <NoteItem note={note} />)}
 		</section>
 	</div>
 </BaseLayout>

@@ -1,17 +1,24 @@
 ---
-import BaseLayout from "./base-layout.astro";
-import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
+import { Button } from "@/components/ui/button";
+import BaseLayout from "@/layouts/base-layout.astro";
 import { formatDate } from "@/lib/format-date";
-import { ChevronUp } from "@lucide/astro";
-import { ChevronLeft } from "lucide-react";
+import { getCollection, render } from "astro:content";
+import { ChevronLeft, ChevronUp } from "lucide-react";
 
-const { frontmatter, headings } = Astro.props;
+export async function getStaticPaths() {
+	const posts = await getCollection("notes");
+	return posts.map((post) => ({
+		params: { id: post.id },
+		props: { post },
+	}));
+}
 
-const title = frontmatter.title ?? headings[0].text;
+const { post } = Astro.props;
+const { Content } = await render(post);
 ---
 
-<BaseLayout title={title}>
+<BaseLayout title={post.data.title}>
 	<div class="mx-auto flex max-w-prose flex-col gap-8 px-4 py-4">
 		<div class="flex w-full flex-row items-center justify-between">
 			<a href="/">
@@ -36,19 +43,19 @@ const title = frontmatter.title ?? headings[0].text;
 			</button>
 		</div>
 		<div class="border-b">
-			<h1 class="text-2xl font-bold tracking-wide">{title}</h1>
+			<h1 class="text-2xl font-bold tracking-wide">{post.data.title}</h1>
 			<time
-				datetime={formatDate(frontmatter.date)}
+				datetime={formatDate(post.data.date)}
 				class="text-muted-foreground font-mono"
 			>
-				{formatDate(frontmatter.date)}
+				{formatDate(post.data.date)}
 			</time>
 			<p class="text-muted-foreground mt-4 mb-6 italic">
-				{frontmatter.description}
+				{post.data.description}
 			</p>
 		</div>
 		<div class="prose dark:prose-invert">
-			<slot />
+			<Content />
 			<div class="p-4"></div>
 		</div>
 	</div>

@@ -1,10 +1,10 @@
 # Development Setup
 
 ```sh
-npm install
+yarn
 npx playwright install --with-deps chromium # Mermaid
 
-npm run dev
+yarn run dev
 ```
 
 # Resources
@@ -13,3 +13,4 @@ npm run dev
 - Dark mode: https://github.com/shadcn-ui/ui/discussions/3528
 - Customizing rehype-autolink-headings: https://github.com/withastro/astro/issues/5001
 - Mermaid diagrams on Astro: https://dteather.com/blogs/astro-uml-diagrams/
+- https://docs.astro.build/en/guides/content-collections/

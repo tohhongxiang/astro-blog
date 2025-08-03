@@ -4,16 +4,19 @@ import type { Post } from "@/types";
 export default function PostItem({ post }: { post: Post }) {
 	return (
 		<div className="flex flex-row items-baseline gap-4 py-2">
-			{post.frontmatter.date && (
+			{post.data.date && (
 				<time
-					dateTime={formatDate(post.frontmatter.date)}
+					dateTime={formatDate(post.data.date)}
 					className="text-muted-foreground font-mono"
 				>
-					{formatDate(post.frontmatter.date)}
+					{formatDate(post.data.date)}
 				</time>
 			)}
-			<a href={post.url} className="font-semibold hover:underline">
-				{post.frontmatter.title}
+			<a
+				href={`/${post.collection}/${post.id}`}
+				className="font-semibold hover:underline"
+			>
+				{post.data.title}
 			</a>
 		</div>
 	);

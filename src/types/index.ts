@@ -1,7 +1,4 @@
-export type Post = {
-	frontmatter: {
-		title?: string;
-		date?: string;
-	};
-	url: string;
-};
+import type { CollectionEntry } from "astro:content";
+
+export type Post = CollectionEntry<"blog">;
+export type Note = CollectionEntry<"notes">;

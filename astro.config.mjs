@@ -17,14 +17,14 @@ export default defineConfig({
 		react(),
 		expressiveCode({
 			themes: ["one-dark-pro", "one-light"],
-			themeCssSelector: (theme) => `[data-code-theme='${theme.name}']`
+			themeCssSelector: (theme) => `[data-code-theme='${theme.name}']`,
 		}),
 	],
 	vite: {
 		plugins: [tailwindcss()],
 	},
 	markdown: {
-		remarkPlugins: [setLayout, remarkMath],
+		remarkPlugins: [remarkMath],
 		rehypePlugins: [
 			[
 				rehypeExternalLinks,
@@ -51,17 +51,7 @@ export default defineConfig({
 	},
 });
 
-function setLayout(layoutPath = "@/layouts/blog-layout.astro") {
-	// @ts-expect-error Types
-	return function (_, file) {
-		if (!file.data.astro.frontmatter.layout) {
-			file.data.astro.frontmatter.layout = layoutPath;
-		}
-	};
-}
-
 function rehypeModifyMermaidGraphs() {
-	// @ts-expect-error Types
 	return (tree) => {
 		visit(tree, "element", (node) => {
 			if (node.tagName === "picture") {

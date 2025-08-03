@@ -1,9 +1,9 @@
-import { defineConfig } from "eslint/config";
-import globals from "globals";
 import js from "@eslint/js";
-import tseslint from "typescript-eslint";
 import astro from "eslint-plugin-astro";
 import prettier from "eslint-plugin-prettier";
+import { defineConfig } from "eslint/config";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 // parsers
 const tsParser = tseslint.parser;
@@ -47,7 +47,6 @@ export default defineConfig([
 				extraFileExtensions: [".astro"],
 				sourceType: "module",
 				ecmaVersion: "latest",
-				project: "./tsconfig.json",
 			},
 		},
 		rules: {

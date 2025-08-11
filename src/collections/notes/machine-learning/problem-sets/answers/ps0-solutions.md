@@ -86,12 +86,71 @@ $$
 
 1. Let $f(x) = \frac{1}{2} x^T A x + b^T x$, where $A$ is a symmetric matrix and $b \in \mathbb{R}^n$ is a vector. What is $\nabla f(x)$?
 
+    Let's look at $x^T A x$ first.
+
+    $$
+        x^T A x = \sum_{i = 1}^n \sum_{j = 1}^n x_i A_{ij} x_j
+    $$
+
+    If we differentiate w.r.t. $x_k$:
+
+    $$
+        \frac{\partial}{\partial x_k} x^T A x = \sum_{i = 1}^n \sum_{j = 1}^n A_{ij} \frac{\partial}{\partial x_k} (x_i x_j)
+    $$
+
+    Now we solve for $\frac{\partial}{\partial x_k} (x_i x_j)$. By product rule:
+
+    $$
+    \frac{\partial}{\partial x_k} (x_i x_j) =  \left(\frac{\partial}{\partial x_k}x_i \right) x_j + x_i \left(\frac{\partial}{\partial x_k} x_j\right) = \delta_{ik} x_j + x_i \delta_{jk}
+    $$
+
+    where $\delta_{ik}$ is the Kronecker delta (1 if $i = k$, else 0).
+
+    Then:
+
+    $$
+    \frac{\partial}{\partial x_k} x^T A x = \sum_{i = 1}^n \sum_{j = 1}^n A_{ij} (\delta_{ik} x_j + x_i \delta_{jk})
+    $$
+
+    First term ($\delta_{ik}$ forces $i = k$):
+
+    $$
+    \sum_{j = 1}^n A_{kj} x_j
+    $$
+
+    Second term ($\delta_{jk}$ forces $j = k$):
+
+    $$
+    \sum_{i = 1}^n A_{ik} x_i
+    $$
+
+    This means:
+
+    $$
+    \frac{\partial}{\partial x_k} (x^T A x) = (Ax)_k + (A^T x)_k
+    $$
+
+    Writing it in vector form:
+
+    $$
+    \nabla_x x^T A x = Ax + A^Tx
+    $$
+
+    Since $A$ is symmetric, $A = A^T$, and:
+
+    $$
+    \nabla_x x^T A x = 2Ax
+    $$
+
+    Now we can finally say:
     $$
     \begin{align*}
         f(x) &= \frac{1}{2} x^T A x + b^T x \\
         \nabla f(x) &= Ax + b
     \end{align*}
     $$
+
+    
 
 2. Let $f(x) = g(h(x))$, where $g : \mathbb{R} \to \mathbb{R}$ is differentiable and $h : \mathbb{R}^n \to \mathbb{R}$ is differentiable. What is $\nabla f(x)$?
 

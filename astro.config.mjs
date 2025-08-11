@@ -1,6 +1,5 @@
 // @ts-check
 import react from "@astrojs/react";
-import { pluginCodeOutput } from "@fujocoded/expressive-code-output";
 import tailwindcss from "@tailwindcss/vite";
 import expressiveCode from "astro-expressive-code";
 import { defineConfig } from "astro/config";
@@ -11,6 +10,8 @@ import rehypeMermaid from "rehype-mermaid";
 import rehypeSlug from "rehype-slug";
 import remarkMath from "remark-math";
 import { visit } from "unist-util-visit";
+
+import { pluginCodeOutput } from "./src/lib/plugins/expressive-code-output";
 
 // https://astro.build/config
 export default defineConfig({

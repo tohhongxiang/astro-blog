@@ -6,6 +6,29 @@
 	margin-bottom: 1.25rem; /* Follow tailwind's paragraph sizing */
 }
 
+/* Expressive Code output plugin tweaks */
+/* Ensure output background matches current theme */
+.expressive-code .frame pre.output {
+	background: var(--code-background) !important;
+	border-top: 0 !important;
+	border-left: calc(4 * var(--ec-brdWd)) solid var(--ec-brdCol) !important;
+}
+
+/* When a code block is followed by an output block, square the touching corners */
+/* Top corners of code stay rounded; bottom corners squared */
+.expressive-code .frame pre:has(+ pre.output) {
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+}
+
+/* Output block gets rounded bottom corners only */
+.expressive-code .frame pre.output {
+	border-top-left-radius: 0 !important;
+	border-top-right-radius: 0 !important;
+	border-bottom-left-radius: var(--ec-brdRad);
+	border-bottom-right-radius: var(--ec-brdRad);
+}
+
 /* Allow horizontal scrolling for long lines */
 .katex-display {
 	overflow: auto hidden;

@@ -1,5 +1,6 @@
 // @ts-check
 import react from "@astrojs/react";
+import { pluginCodeOutput } from "@fujocoded/expressive-code-output";
 import tailwindcss from "@tailwindcss/vite";
 import expressiveCode from "astro-expressive-code";
 import { defineConfig } from "astro/config";
@@ -18,6 +19,7 @@ export default defineConfig({
 		expressiveCode({
 			themes: ["one-dark-pro", "one-light"],
 			themeCssSelector: (theme) => `[data-code-theme='${theme.name}']`,
+			plugins: [pluginCodeOutput()],
 		}),
 	],
 	vite: {

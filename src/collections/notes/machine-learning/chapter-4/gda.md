@@ -1,6 +1,6 @@
 ---
-title: "Gaussian Discriminant Analysis"
-date: 2025-08-08 
+title: "Chapter 4: Gaussian Discriminant Analysis"
+date: 2025-08-08
 ---
 We go throught the Gaussian Discriminant Analysis (GDA) covered in [Lecture 5](https://www.youtube.com/watch?v=nt63k3bfXS0&list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU&index=5).
 

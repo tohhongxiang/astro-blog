@@ -11,10 +11,11 @@ export function pluginCodeOutput() {
 		name: "Code output",
 		baseStyles: ` 
     .expressive-code .frame pre.output {
-      background-color: #171a28;
+      background-color: var(--code-background);
       display: block;
       border: var(--ec-brdWd) solid var(--ec-brdCol);
-      border-top: var(--ec-brdWd) dashed var(--ec-brdCol);
+	  border-top: 0;
+	  border-left: calc(4 * var(--ec-brdWd)) solid var(--ec-brdCol);
       padding: var(--ec-codePadBlk) 0;
       padding-inline-start: var(--ec-codePadInl);
     }

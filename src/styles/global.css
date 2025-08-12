@@ -2,16 +2,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-.expressive-code {
-	margin-bottom: 1.25rem; /* Follow tailwind's paragraph sizing */
+.prose a {
+	word-break: break-word;
 }
 
-/* Expressive Code output plugin tweaks */
-/* Ensure output background matches current theme */
-.expressive-code .frame pre.output {
-	background: var(--code-background) !important;
-	border-top: 0 !important;
-	border-left: calc(4 * var(--ec-brdWd)) solid var(--ec-brdCol) !important;
+.expressive-code {
+	margin-bottom: 1.25rem; /* Follow tailwind's paragraph sizing */
 }
 
 /* When a code block is followed by an output block, square the touching corners */

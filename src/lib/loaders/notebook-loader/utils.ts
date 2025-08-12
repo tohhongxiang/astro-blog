@@ -1,95 +1,18 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
-
-export type NotebookFrontmatter = {
-	title?: string;
-	description?: string;
-	slug?: string;
-	date?: string;
-};
-
-export type NotebookToMarkdownOk = {
-	markdown: string;
-	frontmatter: NotebookFrontmatter;
-};
-
-export type NotebookToMarkdownErr = { error: unknown };
-export type NotebookToMarkdownResult =
-	| NotebookToMarkdownOk
-	| NotebookToMarkdownErr;
-
-enum NotebookOutputType {
-	Stream = "stream",
-	DisplayData = "display_data",
-	ExecuteResult = "execute_result",
-}
-
-type NotebookStreamOutput = {
-	output_type: NotebookOutputType.Stream;
-	text?: string | string[];
-};
-
-type NotebookDisplayOutput = {
-	output_type:
-		| NotebookOutputType.DisplayData
-		| NotebookOutputType.ExecuteResult;
-	data?: Record<string, string | string[] | undefined>;
-};
-
-enum CellType {
-	Markdown = "markdown",
-	Code = "code",
-}
-
-type NotebookMarkdownCell = {
-	cell_type: CellType.Markdown;
-	source?: string | string[];
-};
-
-type NotebookCodeCell = {
-	cell_type: CellType.Code;
-	source?: string | string[];
-	metadata?: { language?: string };
-	outputs?: Array<NotebookStreamOutput | NotebookDisplayOutput>;
-};
-
-type RawNotebook = {
-	metadata?: {
-		language_info?: { name?: string };
-		astro?: NotebookFrontmatter;
-	} & NotebookFrontmatter;
-	cells?: Array<NotebookMarkdownCell | NotebookCodeCell>;
-};
-
-export function toTitleCase(input: string): string {
-	return input
-		.split(/\s+/)
-		.filter(Boolean)
-		.map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-		.join(" ");
-}
+import {
+	CellType,
+	type NotebookFrontmatter,
+	NotebookOutputType,
+	type NotebookToMarkdownResult,
+	type RawNotebook,
+} from "./types";
 
 export function generateIdFromRelativePath(rel: string): string {
 	const noExt = rel.replace(/\.[^/.]+$/, "");
 	return noExt.replace(/\\/g, "/");
 }
 
-export async function* walk(dir: string): AsyncGenerator<string> {
-	const entries = await fs.readdir(dir, { withFileTypes: true });
-	for (const entry of entries) {
-		const full = path.join(dir, entry.name);
-		if (entry.isDirectory()) {
-			if (entry.name === ".ipynb_checkpoints") continue;
-			yield* walk(full);
-		} else if (entry.isFile()) {
-			yield full;
-		}
-	}
-}
-
 export function convertNotebookToMarkdown(
 	json: string,
-	fileNameWithoutExtensions: string,
 ): NotebookToMarkdownResult {
 	let parsed: unknown;
 	try {
@@ -100,10 +23,7 @@ export function convertNotebookToMarkdown(
 
 	const nb = parsed as RawNotebook;
 	const defaultLang = nb?.metadata?.language_info?.name || "python";
-	const frontmatter: NotebookFrontmatter = extractFrontmatter(
-		nb,
-		fileNameWithoutExtensions,
-	);
+	const frontmatter = extractFrontmatter(nb);
 
 	const cells = nb?.cells || [];
 	const lines: string[] = [];
@@ -179,10 +99,7 @@ export function convertNotebookToMarkdown(
 	return { markdown: lines.join("\n"), frontmatter };
 }
 
-function extractFrontmatter(
-	nb: RawNotebook,
-	fileName: string,
-): NotebookFrontmatter {
+function extractFrontmatter(nb: RawNotebook): NotebookFrontmatter {
 	const fm: NotebookFrontmatter = {};
 	const meta = nb.metadata || {};
 	const astro = meta.astro || {};
@@ -192,27 +109,7 @@ function extractFrontmatter(
 	fm.slug = astro.slug || meta.slug;
 	fm.date = astro.date || meta.date;
 
-	if (!fm.title) {
-		const firstCellTitle = getTitleFromCell(nb.cells?.[0]);
-		fm.title =
-			firstCellTitle || toTitleCase(fileName.replace(/[-_]+/g, " "));
-	}
 	return fm;
-}
-
-function getTitleFromCell(cell?: NotebookMarkdownCell | NotebookCodeCell) {
-	if (!cell || cell.cell_type !== CellType.Markdown) {
-		return undefined;
-	}
-
-	const src = Array.isArray(cell.source)
-		? cell.source.join("")
-		: String(cell.source ?? "");
-
-	const h1Match = src.match(/^#\s+(.+)$/m);
-	if (h1Match && h1Match[1]) return h1Match[1].trim();
-
-	return undefined;
 }
 
 function joinText(txt: string | string[] | undefined) {

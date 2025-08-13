@@ -40,7 +40,7 @@ export default function notebookLoader(baseDir: string): Loader {
 
 					if (!frontmatter.title) {
 						const firstLine = markdown.split("\n")[0];
-						const firstLineMatch = firstLine.match(/^#\s*(.*)/);
+						const firstLineMatch = firstLine?.match(/^#\s*(.*)/);
 						frontmatter.title =
 							firstLineMatch?.[1] ||
 							toTitleCase(baseName.replace(/[-_]+/g, " "));

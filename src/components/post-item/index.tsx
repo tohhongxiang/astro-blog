@@ -7,7 +7,7 @@ export default function PostItem({ post }: { post: Post }) {
 			{post.data.date && (
 				<time
 					dateTime={formatDate(post.data.date)}
-					className="text-muted-foreground font-mono"
+					className="text-muted-foreground font-mono hidden sm:block shrink-0"
 				>
 					{formatDate(post.data.date)}
 				</time>

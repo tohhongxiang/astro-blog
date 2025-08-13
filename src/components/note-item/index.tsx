@@ -8,7 +8,7 @@ export default function NoteItem({ note }: { note: Note }) {
 				{note.data.date && (
 					<time
 						dateTime={formatDate(note.data.date)}
-						className="text-muted-foreground font-mono"
+						className="text-muted-foreground font-mono hidden sm:block shrink-0"
 					>
 						{formatDate(note.data.date)}
 					</time>

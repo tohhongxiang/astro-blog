@@ -8,6 +8,10 @@
 		"jsxImportSource": "react",
 		"paths": {
 			"@/*": ["./src/*"]
-		}
+		},
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"noUncheckedIndexedAccess": true,
+		"noImplicitThis": true,
 	}
 }

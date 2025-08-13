@@ -36,15 +36,28 @@ export function ModeToggle() {
 			isDark ? "one-dark-pro" : "one-light",
 		);
 
-		const dataTheme = document.documentElement.getAttribute("data-theme");
-		document.querySelectorAll(".mermaid-dark").forEach((el) => {
-			// toggle between mermaid light and dark
-			if (dataTheme === "dark") {
-				el.setAttribute("media", "all");
-			} else {
-				el.setAttribute("media", "none");
-			}
-		});
+		// Add theme-loaded class to trigger transitions
+		setTimeout(() => {
+			document.querySelectorAll(".expressive-code").forEach((el) => {
+				el.classList.add("theme-loaded");
+			});
+
+			// Handle mermaid diagrams
+			document.querySelectorAll(".mermaid-dark").forEach((el) => {
+				if (isDark) {
+					el.setAttribute("media", "all");
+					el.classList.add("theme-loaded");
+				} else {
+					el.setAttribute("media", "none");
+					el.classList.remove("theme-loaded");
+				}
+			});
+
+			document.querySelectorAll(".mermaid").forEach((el) => {
+				// Always add theme-loaded to the img element, as it's always the display element
+				el.classList.add("theme-loaded");
+			});
+		}, 50);
 	}, [theme]);
 
 	return (

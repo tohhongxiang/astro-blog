@@ -12,6 +12,18 @@
 	opacity: 1;
 }
 
+/* Prevent FOUC (Flash of Unstyled Content) for mermaid diagrams */
+/* Hide the entire picture element initially */
+picture:has(.mermaid, .mermaid-dark) {
+	opacity: 0;
+}
+
+/* Show mermaid diagrams once theme is loaded */
+:root[data-code-theme] picture:has(.mermaid.theme-loaded),
+:root[data-code-theme] picture:has(.mermaid-dark.theme-loaded) {
+	opacity: 1;
+}
+
 .prose a {
 	word-break: break-word;
 }

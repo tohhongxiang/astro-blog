@@ -1091,9 +1091,10 @@ We know that $\hat\Sigma$ is symmetric positive definite (SPD), so its inverse $
 
 $$
 \begin{align*}
-    \Sigma \succ 0 \implies x^T \Sigma x > 0, \ \forall x \neq 0 \\
-    \implies y \coloneqq \hat\Sigma^{-1/2}x \neq 0 \implies \ x^T \hat \Sigma^{-1} x = y^T y > 0 \\
-    \therefore \hat\Sigma^{-1} \succ 0
+    \Sigma \succ 0 &\implies x^T \Sigma x > 0, \ \forall x \neq 0 \\
+    &\implies y \coloneqq \hat\Sigma^{-1/2}x \neq 0 \\
+    &\implies \ x^T \hat \Sigma^{-1} x = y^T y > 0 \\
+    &\therefore \hat\Sigma^{-1} \succ 0
 \end{align*}
 $$
 - Since $\hat\Sigma$ is positive definite, it has a positive definite square root $\hat\Sigma^{1/2}$, and the inverse $\hat\Sigma^{-1/2}$ is also positive definite.
@@ -1141,7 +1142,10 @@ since $A \neq 0$ if $H \neq 0$.
 Now, we can see that:
 
 $$
-D^2 \mathcal{l}_\Sigma(\theta)[H, H] = -\frac{n}{2} \operatorname{tr}(\hat\Sigma^{-1} H \hat\Sigma^{-1} H) = -\frac{n}{2} \| \hat\Sigma^{-1/2} H \hat\Sigma^{-1/2} \|^2_F < 0 \quad \forall H \neq 0
+\begin{align*}
+D^2 \mathcal{l}_\Sigma(\theta)[H, H] &= -\frac{n}{2} \operatorname{tr}(\hat\Sigma^{-1} H \hat\Sigma^{-1} H) \\
+&= -\frac{n}{2} \| \hat\Sigma^{-1/2} H \hat\Sigma^{-1/2} \|^2_F < 0 \quad \forall H \neq 0
+\end{align*}
 $$
 
 

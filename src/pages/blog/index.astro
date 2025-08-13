@@ -11,14 +11,14 @@ const posts = (await getCollection("blog")).sort((a, b) => {
 
 <BaseLayout title="THX">
 	<div class="mx-auto flex max-w-prose flex-col gap-12">
-		<section class="pt-16">
+		<section class="px-4 pt-16">
 			<Header
 				title="THX's Posts"
 				description="Random things I think about"
 			/>
 		</section>
 		<section>
-			<h2 class="mb-2 text-2xl font-bold">All Posts</h2>
+			<h2 class="mb-2 px-4 text-2xl font-bold">All Posts</h2>
 			{posts.map((post) => <PostItem post={post} />)}
 		</section>
 	</div>

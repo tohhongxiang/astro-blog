@@ -16,14 +16,14 @@ const notes = (await getCollection("notes")).sort((a, b) => {
 
 <BaseLayout title="THX">
 	<div class="mx-auto flex max-w-prose flex-col gap-12">
-		<section class="pt-16">
+		<section class="px-4 pt-16">
 			<Header
 				title="THX's Landing"
 				description="A collection of random thoughts and notes"
 			/>
 		</section>
 		<section>
-			<div class="flex flex-row items-baseline justify-start gap-4">
+			<div class="flex flex-row items-baseline justify-start gap-4 px-4">
 				<h2 class="mb-2 text-2xl font-bold">Recent Posts</h2>
 				<p class="text-muted-foreground text-sm hover:underline">
 					<a href="/blog">More</a>
@@ -32,7 +32,7 @@ const notes = (await getCollection("notes")).sort((a, b) => {
 			{posts.map((post) => <PostItem post={post} />)}
 		</section>
 		<section>
-			<div class="flex flex-row items-baseline justify-start gap-4">
+			<div class="flex flex-row items-baseline justify-start gap-4 px-4">
 				<h2 class="mb-2 text-2xl font-bold">Recent Notes</h2>
 				<p class="text-muted-foreground text-sm hover:underline">
 					<a href="/notes">More</a>

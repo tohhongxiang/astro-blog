@@ -36,28 +36,10 @@ export function ModeToggle() {
 			isDark ? "one-dark-pro" : "one-light",
 		);
 
-		// Add theme-loaded class to trigger transitions
-		setTimeout(() => {
-			document.querySelectorAll(".expressive-code").forEach((el) => {
-				el.classList.add("theme-loaded");
-			});
-
-			// Handle mermaid diagrams
-			document.querySelectorAll(".mermaid-dark").forEach((el) => {
-				if (isDark) {
-					el.setAttribute("media", "all");
-					el.classList.add("theme-loaded");
-				} else {
-					el.setAttribute("media", "none");
-					el.classList.remove("theme-loaded");
-				}
-			});
-
-			document.querySelectorAll(".mermaid").forEach((el) => {
-				// Always add theme-loaded to the img element, as it's always the display element
-				el.classList.add("theme-loaded");
-			});
-		}, 50);
+		// Update mermaid themes immediately (no delay needed for theme switching)
+		document.querySelectorAll(".mermaid-dark").forEach((el) => {
+			el.setAttribute("media", isDark ? "all" : "none");
+		});
 	}, [theme]);
 
 	return (

@@ -2,25 +2,19 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Prevent FOUC (Flash of Unstyled Content) for code blocks */
-.expressive-code {
-	margin-bottom: 1.25rem; /* Follow tailwind's paragraph sizing */
-	opacity: 0; /* Start hidden by default */
-}
-/* Show code blocks once theme is set AND a special class is added */
-:root[data-code-theme] .expressive-code.theme-loaded {
-	opacity: 1;
-}
-
-/* Prevent FOUC (Flash of Unstyled Content) for mermaid diagrams */
-/* Hide the entire picture element initially */
+/* Prevent FOUC (Flash of Unstyled Content) */
+.expressive-code,
 picture:has(.mermaid, .mermaid-dark) {
 	opacity: 0;
 }
 
-/* Show mermaid diagrams once theme is loaded */
-:root[data-code-theme] picture:has(.mermaid.theme-loaded),
-:root[data-code-theme] picture:has(.mermaid-dark.theme-loaded) {
+.expressive-code {
+	margin-bottom: 1.25rem; /* Follow tailwind's paragraph sizing */
+}
+
+/* Show elements once theme is loaded */
+:root[data-code-theme] .expressive-code.theme-loaded,
+:root[data-code-theme] picture:has(.mermaid, .mermaid-dark).theme-loaded {
 	opacity: 1;
 }
 

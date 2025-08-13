@@ -1,6 +1,5 @@
 ---
-import BaseLayout from "@/layouts/base-layout.astro";
-import Header from "@/components/header/index.astro";
+import NotesLayout from "@/layouts/notes-layout.astro";
 import NoteItem from "@/components/note-item";
 import { getCollection } from "astro:content";
 
@@ -9,17 +8,8 @@ const notes = (await getCollection("notes")).sort((a, b) => {
 });
 ---
 
-<BaseLayout title="THX">
-	<div class="mx-auto flex max-w-prose flex-col gap-12">
-		<section class="px-4 pt-16">
-			<Header
-				title="THX's Notes"
-				description="Notes from learning random stuff"
-			/>
-		</section>
-		<section>
-			<h2 class="mb-2 px-4 text-2xl font-bold">All Notes</h2>
-			{notes.map((note) => <NoteItem note={note} />)}
-		</section>
+<NotesLayout active="date">
+	<div>
+		{notes.map((note) => <NoteItem note={note} />)}
 	</div>
-</BaseLayout>
+</NotesLayout>

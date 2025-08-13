@@ -6,7 +6,7 @@ import type { Note } from "@/types";
 export default function NoteItem({ note }: { note: Note }) {
 	return (
 		<a
-			href={`${note.collection}/${note.id}`}
+			href={`/${note.collection}/${note.id}`}
 			aria-label={note.data.title}
 			className="group block rounded-md px-4 py-3 transition-colors hover:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
 		>

@@ -48,6 +48,24 @@ const { title = "Untitled" } = Astro.props;
 				document.documentElement.classList[isDark ? "add" : "remove"](
 					"dark",
 				);
+				document.documentElement.setAttribute(
+					"data-theme",
+					isDark ? "dark" : "light",
+				);
+				document.documentElement.setAttribute(
+					"data-code-theme",
+					isDark ? "one-dark-pro" : "one-light",
+				);
+
+				// Add theme-loaded class to trigger transitions
+				setTimeout(() => {
+					document
+						.querySelectorAll(".expressive-code")
+						.forEach((el) => {
+							console.log("Base layout theme added");
+							el.classList.add("theme-loaded");
+						});
+				}, 50);
 
 				if (typeof localStorage !== "undefined") {
 					const observer = new MutationObserver(() => {

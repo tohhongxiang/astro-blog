@@ -1,10 +1,6 @@
 ---
-import { ModeToggle } from "@/components/mode-toggle";
-import { Button } from "@/components/ui/button";
-import BaseLayout from "@/layouts/base-layout.astro";
-import { formatDate } from "@/lib/format-date";
+import MarkdownEntryLayout from "@/layouts/markdown-entry-layout.astro";
 import { getCollection, render } from "astro:content";
-import { ChevronLeft, ChevronUp } from "lucide-react";
 
 export async function getStaticPaths() {
 	const posts = await getCollection("notes");
@@ -18,83 +14,9 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BaseLayout title={post.data.title}>
-	<div class="mx-auto flex max-w-prose flex-col gap-8 px-4 py-4">
-		<div class="flex w-full flex-row items-center justify-between">
-			<a href="/">
-				<h1
-					class="text-xl font-extrabold tracking-wide"
-					transition:name="site-title"
-				>
-					THX's Blog
-				</h1>
-			</a>
-			<div transition:name="mode-toggle">
-				<ModeToggle client:load />
-			</div>
-		</div>
-		<div>
-			<button
-				class="text-muted-foreground hover:text-primary flex cursor-pointer flex-row items-center"
-				id="go-back"
-			>
-				<ChevronLeft />
-				<span>Go back</span>
-			</button>
-		</div>
-		<div class="border-b">
-			<h1 class="text-2xl font-bold tracking-wide">{post.data.title}</h1>
-			<time
-				datetime={formatDate(post.data.date)}
-				class="text-muted-foreground font-mono"
-			>
-				{formatDate(post.data.date)}
-			</time>
-			<p class="text-muted-foreground mt-4 mb-6 italic">
-				{post.data.description}
-			</p>
-		</div>
-		<div class="prose dark:prose-invert">
-			<Content />
-			<div class="p-4"></div>
-		</div>
-	</div>
-	<Button
-		id="scroll-to-top"
-		className="fixed right-8 bottom-12 cursor-pointer"
-		><ChevronUp />
-	</Button>
-</BaseLayout>
-<script is:inline>
-	const handleClick = () => {
-		window.scrollTo(0, 0);
-	};
-
-	const handleGoBack = () => {
-		history.back();
-	};
-
-	const setup = () => {
-		document
-			.getElementById("scroll-to-top")
-			?.addEventListener("click", handleClick);
-
-		document
-			.getElementById("go-back")
-			?.addEventListener("click", handleGoBack);
-
-		// clicking on a header link should replace instead of push, so that user can go back to the actual previous page
-		document.querySelectorAll(".header-link").forEach((link) => {
-			link.addEventListener("click", (e) => {
-				e.preventDefault();
-				location.replace(location.pathname + link.getAttribute("href"));
-			});
-		});
-	};
-
-	if (document.readyState === "loading") {
-		document.addEventListener("DOMContentLoaded", setup);
-	} else {
-		setup();
-	}
-</script>
+<MarkdownEntryLayout
+	title={post.data.title}
+	date={post.data.date}
+	description={post.data.description}
+	Content={Content}
+/>

@@ -2,20 +2,18 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Prevent FOUC (Flash of Unstyled Content) */
-.expressive-code,
-picture:has(.mermaid, .mermaid-dark) {
-	opacity: 0;
+[data-theme="dark"] .mermaid {
+	filter: invert(0.88);
+}
+
+.mermaid {
+	margin-bottom: 1.25rem;
+	display: flex;
+	justify-content: center;
 }
 
 .expressive-code {
 	margin-bottom: 1.25rem; /* Follow tailwind's paragraph sizing */
-}
-
-/* Show elements once theme is loaded */
-:root[data-code-theme] .expressive-code.theme-loaded,
-:root[data-code-theme] picture:has(.mermaid, .mermaid-dark).theme-loaded {
-	opacity: 1;
 }
 
 .prose a {
@@ -40,17 +38,6 @@ picture:has(.mermaid, .mermaid-dark) {
 /* Allow horizontal scrolling for long lines */
 .katex-display {
 	overflow: auto hidden;
-}
-.katex-display > .katex {
-	white-space: normal;
-}
-/* Add space between broken lines: */
-.katex-display > .base {
-	margin: 0.25em 0;
-}
-/* Compensate by reducing space around display math */
-.katex-display {
-	margin: 0.5em 0;
 }
 
 span.icon-link::before {

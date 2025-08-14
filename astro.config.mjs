@@ -6,12 +6,12 @@ import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeKatex from "rehype-katex";
-import rehypeMermaid from "rehype-mermaid";
 import rehypeSlug from "rehype-slug";
 import remarkMath from "remark-math";
 import { visit } from "unist-util-visit";
 
 import { pluginCodeOutput } from "./src/lib/plugins/expressive-code-output";
+import remarkMermaid from "./src/lib/plugins/remark-mermaid";
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,7 +27,7 @@ export default defineConfig({
 		plugins: [tailwindcss()],
 	},
 	markdown: {
-		remarkPlugins: [remarkMath],
+		remarkPlugins: [remarkMath, remarkMermaid],
 		rehypePlugins: [
 			[
 				rehypeExternalLinks,
@@ -37,13 +37,6 @@ export default defineConfig({
 				},
 			],
 			[rehypeKatex, {}],
-			[
-				rehypeMermaid,
-				{
-					strategy: "img-svg",
-					dark: true,
-				},
-			],
 			rehypeModifyMermaidGraphs,
 			rehypeSlug,
 			[

@@ -1,0 +1,126 @@
+---
+import { ModeToggle } from "@/components/mode-toggle";
+import { Button } from "@/components/ui/button";
+import BaseLayout from "@/layouts/base-layout.astro";
+import { formatDate } from "@/lib/format-date";
+import { ChevronLeft, ChevronUp } from "lucide-react";
+
+const { title, date, description, Content } = Astro.props as {
+	title: string;
+	date: Date;
+	description?: string;
+	Content: any;
+};
+---
+
+<BaseLayout title={title}>
+	<div class="mx-auto flex max-w-prose flex-col gap-8 px-4 py-4">
+		<div class="flex w-full flex-row items-center justify-between">
+			<a href="/">
+				<h1
+					class="text-xl font-extrabold tracking-wide"
+					transition:name="site-title"
+				>
+					THX's Blog
+				</h1>
+			</a>
+			<div transition:name="mode-toggle">
+				<ModeToggle client:load />
+			</div>
+		</div>
+		<div>
+			<button
+				class="text-muted-foreground hover:text-primary flex cursor-pointer flex-row items-center"
+				id="go-back"
+			>
+				<ChevronLeft />
+				<span>Go back</span>
+			</button>
+		</div>
+		<div class="border-b">
+			<h1 class="text-2xl font-bold tracking-wide">{title}</h1>
+			<time
+				datetime={formatDate(date)}
+				class="text-muted-foreground font-mono"
+			>
+				{formatDate(date)}
+			</time>
+			{
+				description && (
+					<p class="text-muted-foreground mt-4 mb-6 italic">
+						{description}
+					</p>
+				)
+			}
+		</div>
+		<div class="prose dark:prose-invert">
+			<Content />
+			<div class="p-4"></div>
+		</div>
+	</div>
+	<Button
+		id="scroll-to-top"
+		className="fixed right-8 bottom-12 cursor-pointer"
+		><ChevronUp />
+	</Button>
+</BaseLayout>
+<script is:inline>
+	const handleClick = () => {
+		window.scrollTo(0, 0);
+	};
+
+	const handleGoBack = () => {
+		history.back();
+	};
+
+	const setup = () => {
+		document
+			.getElementById("scroll-to-top")
+			?.addEventListener("click", handleClick);
+
+		document
+			.getElementById("go-back")
+			?.addEventListener("click", handleGoBack);
+
+		// clicking on a header link should replace instead of push, so that user can go back to the actual previous page
+		document.querySelectorAll(".header-link").forEach((link) => {
+			link.addEventListener("click", (e) => {
+				e.preventDefault();
+				location.replace(location.pathname + link.getAttribute("href"));
+			});
+		});
+	};
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", setup);
+	} else {
+		setup();
+	}
+</script>
+<script>
+	async function renderDiagrams(graphs: HTMLCollectionOf<Element>) {
+		const { default: mermaid } = await import("mermaid");
+		mermaid.initialize({
+			startOnLoad: false,
+			fontFamily: "var(--sans-font)",
+			theme: "default",
+		});
+
+		for (const graph of graphs) {
+			const content = graph.getAttribute("data-content");
+			if (!content) continue;
+			const svg = document.createElement("svg");
+			const id = (svg.id =
+				"mermaid-" + Math.round(Math.random() * 100000));
+			graph.appendChild(svg);
+			mermaid.render(id, content).then((result) => {
+				graph.innerHTML = result.svg;
+			});
+		}
+	}
+
+	const graphs = document.getElementsByClassName("mermaid");
+	if (document.getElementsByClassName("mermaid").length > 0) {
+		renderDiagrams(graphs);
+	}
+</script>

@@ -57,35 +57,6 @@ const { title = "Untitled" } = Astro.props;
 					isDark ? "one-dark-pro" : "one-light",
 				);
 
-				// Show content after theme is applied
-				setTimeout(() => {
-					// Show code blocks
-					document
-						.querySelectorAll(".expressive-code")
-						.forEach((el) => {
-							el.classList.add("theme-loaded");
-						});
-
-					// Show mermaid diagrams and set correct theme
-					document
-						.querySelectorAll(
-							"picture:has(.mermaid, .mermaid-dark)",
-						)
-						.forEach((picture) => {
-							picture.classList.add("theme-loaded");
-
-							// Set mermaid theme
-							const darkSource =
-								picture.querySelector(".mermaid-dark");
-							if (darkSource) {
-								darkSource.setAttribute(
-									"media",
-									isDark ? "all" : "none",
-								);
-							}
-						});
-				}, 50);
-
 				if (typeof localStorage !== "undefined") {
 					const observer = new MutationObserver(() => {
 						const isDark =

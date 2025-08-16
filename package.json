@@ -4,7 +4,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "astro dev",
-		"prebuild": "npx playwright install --with-deps chromium",
+		"prebuild": "npx playwright install chromium && yarn playwright install-deps",
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",

@@ -23,7 +23,7 @@ $$
 classDiagram
     note "From Duck till Zebra"
     Animal <|-- Duck
-    note for Duck "can fly\ncan swim\ncan dive\ncan help in debugging"
+    note for Duck "can fly can swim\ncan dive\ncan help in debugging"
     Animal <|-- Fish
     Animal <|-- Zebra
     Animal : +int age

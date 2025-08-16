@@ -35,14 +35,6 @@ export function ModeToggle() {
 			"data-code-theme",
 			isDark ? "one-dark-pro" : "one-light",
 		);
-
-		document.querySelectorAll(".mermaid-dark").forEach((el) => {
-			if (isDark) {
-				el.setAttribute("media", "all");
-			} else {
-				el.setAttribute("media", "none");
-			}
-		});
 	}, [theme]);
 
 	return (

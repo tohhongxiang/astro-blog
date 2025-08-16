@@ -63,15 +63,6 @@ const { title, date, description, Content } = Astro.props as {
 	</Button>
 </BaseLayout>
 <script is:inline>
-	const dataTheme = document.documentElement.getAttribute("data-theme");
-	document.querySelectorAll(".mermaid-dark").forEach((el) => {
-		if (dataTheme === "dark") {
-			el.setAttribute("media", "all");
-		} else {
-			el.setAttribute("media", "none");
-		}
-	});
-
 	const handleClick = () => {
 		window.scrollTo(0, 0);
 	};

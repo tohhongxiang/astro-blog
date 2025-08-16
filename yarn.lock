@@ -589,11 +589,6 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.10.tgz#a2a1e3812d14525f725d011a73eceb41fef5bc1c"
   integrity sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==
 
-"@fortawesome/fontawesome-free@^6.0.0":
-  version "6.7.2"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.7.2.tgz#8249de9b7e22fcb3ceb5e66090c30a1d5492b81a"
-  integrity sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==
-
 "@humanfs/core@^0.19.1":
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/@humanfs/core/-/core-0.19.1.tgz#17c55ca7d426733fe3c561906b8173c336b40a77"
@@ -792,10 +787,10 @@
   resolved "https://registry.yarnpkg.com/@lucide/astro/-/astro-0.501.0.tgz#e19fd75d8d9e65eb2c2920eba69c5678bdbcdbb5"
   integrity sha512-U2tgHWtYYcq4unq78M083Uv5L3xPTEPGkGNUuJfUtJ50ZqY9Blbngy0NHrMeDwhut2oZpt1qgZk8+DDDXyBgAg==
 
-"@mermaid-js/parser@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@mermaid-js/parser/-/parser-0.6.0.tgz#91ee90eaa4af80bc3d5e85ad6b58e0abdd6c768e"
-  integrity sha512-7DNESgpyZ5WG1SIkrYafVBhWmImtmQuoxOO1lawI3gQYWxBX3v1FW3IyuuRfKJAO06XrZR71W0Kif5VEGGd4VA==
+"@mermaid-js/parser@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@mermaid-js/parser/-/parser-0.6.2.tgz#6d505a33acb52ddeb592c596b14f9d92a30396a9"
+  integrity sha512-+PO02uGF6L6Cs0Bw8RpGhikVvMWEysfAyl27qTlroUB8jSWr1lL0Sf6zi78ZxlSnmgSY2AMMKVgghnN9jTtwkQ==
   dependencies:
     langium "3.3.1"
 
@@ -2017,6 +2012,14 @@ astro-expressive-code@^0.41.2:
   integrity sha512-u+zHMqo/QNLE2eqYRCrK3+XMlKakv33Bzuz+56V1gs8H0y6TZ0hIi3VNbIxeTn51NLn+mJfUV/A0kMNfE4rANw==
   dependencies:
     rehype-expressive-code "^0.41.3"
+
+astro-mermaid@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/astro-mermaid/-/astro-mermaid-1.0.4.tgz#5b79db776bb3abfd864ccc719f711f0c2c7e5a6f"
+  integrity sha512-2M4bVjqLpDB2EZ4EfD6Utzs7VEEORmlt5hNZcMK54IcKWzflohKvowCzg79RHoAdu30W8a4aECAExH8mF7wG4w==
+  dependencies:
+    mdast-util-to-string "^4.0.0"
+    unist-util-visit "^5.0.0"
 
 astro@^5.7.4:
   version "5.11.0"
@@ -4294,7 +4297,7 @@ json5@^2.2.3:
     object.assign "^4.1.4"
     object.values "^1.1.6"
 
-katex@^0.16.0, katex@^0.16.9:
+katex@^0.16.0, katex@^0.16.22:
   version "0.16.22"
   resolved "https://registry.yarnpkg.com/katex/-/katex-0.16.22.tgz#d2b3d66464b1e6d69e6463b28a86ced5a02c5ccd"
   integrity sha512-XCHRdUw4lf3SKBaJe4EvgqIuWwkPSo9XoeO8GjQW94Bp7TWv9hNhzZjZ+OH9yf1UmLygb7DIT5GSFQiyt16zYg==
@@ -4572,10 +4575,10 @@ markdown-table@^3.0.0:
   resolved "https://registry.yarnpkg.com/markdown-table/-/markdown-table-3.0.4.tgz#fe44d6d410ff9d6f2ea1797a3f60aa4d2b631c2a"
   integrity sha512-wiYz4+JrLyb/DqW2hkFJxP7Vd7JuTDm77fvbM8VfEQdmSMqcImWeeRbHwZjBjIFki/VaMK2BhFi7oUUZeM5bqw==
 
-marked@^15.0.7:
-  version "15.0.12"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-15.0.12.tgz#30722c7346e12d0a2d0207ab9b0c4f0102d86c4e"
-  integrity sha512-8dD6FusOQSrpv9Z1rdNMdlSgQOIP880DHqnohobOmYLElGEqAL/JvxvuxZO16r4HtjTlfPRDC1hbvxC9dPN2nA==
+marked@^16.0.0:
+  version "16.1.2"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-16.1.2.tgz#b723ad2eb0a19d5bf5809b62816af85d117672e3"
+  integrity sha512-rNQt5EvRinalby7zJZu/mB+BvaAY2oz3wCuCjt1RDrWNpS1Pdf9xqMOeC9Hm5adBdcV/3XZPJpG58eT+WBc0XQ==
 
 math-intrinsics@^1.1.0:
   version "1.1.0"
@@ -4757,22 +4760,14 @@ merge2@^1.3.0:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-mermaid-isomorphic@^3.0.0:
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/mermaid-isomorphic/-/mermaid-isomorphic-3.0.4.tgz#5852f1c241d0ee4683c6d8accbda3312a1599eec"
-  integrity sha512-XQTy7H1XwHK3DPEHf+ZNWiqUEd9BwX3Xws38R9Fj2gx718srmgjlZoUzHr+Tca+O+dqJOJsAJaKzCoP65QDfDg==
-  dependencies:
-    "@fortawesome/fontawesome-free" "^6.0.0"
-    mermaid "^11.0.0"
-
-mermaid@^11.0.0:
-  version "11.8.0"
-  resolved "https://registry.yarnpkg.com/mermaid/-/mermaid-11.8.0.tgz#d075d48fc4038daf8091b39d590175ddece70e46"
-  integrity sha512-uAZUwnBiqREZcUrFw3G5iQ5Pj3hTYUP95EZc3ec/nGBzHddJZydzYGE09tGZDBS1VoSoDn0symZ85FmypSTo5g==
+mermaid@^11.9.0:
+  version "11.9.0"
+  resolved "https://registry.yarnpkg.com/mermaid/-/mermaid-11.9.0.tgz#fdc055d0f2a7f2afc13a78cb3e3c9b1374614e2e"
+  integrity sha512-YdPXn9slEwO0omQfQIsW6vS84weVQftIyyTGAZCwM//MGhPzL1+l6vO6bkf0wnP4tHigH1alZ5Ooy3HXI2gOag==
   dependencies:
     "@braintree/sanitize-url" "^7.0.4"
     "@iconify/utils" "^2.1.33"
-    "@mermaid-js/parser" "^0.6.0"
+    "@mermaid-js/parser" "^0.6.2"
     "@types/d3" "^7.4.3"
     cytoscape "^3.29.3"
     cytoscape-cose-bilkent "^4.1.0"
@@ -4782,10 +4777,10 @@ mermaid@^11.0.0:
     dagre-d3-es "7.0.11"
     dayjs "^1.11.13"
     dompurify "^3.2.5"
-    katex "^0.16.9"
+    katex "^0.16.22"
     khroma "^2.1.0"
     lodash-es "^4.17.21"
-    marked "^15.0.7"
+    marked "^16.0.0"
     roughjs "^4.6.6"
     stylis "^4.3.6"
     ts-dedent "^2.2.0"
@@ -5094,11 +5089,6 @@ mimic-function@^5.0.0:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/mimic-function/-/mimic-function-5.0.1.tgz#acbe2b3349f99b9deaca7fb70e48b83e94e67076"
   integrity sha512-VP79XUPxV2CigYP3jWwAUFSku2aKqBH7uTAapFWCBqutsbmDo96KY5o8uh6U+/YSIn5OxJnXp73beVkpqMIGhA==
-
-mini-svg-data-uri@^1.0.0:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/mini-svg-data-uri/-/mini-svg-data-uri-1.4.4.tgz#8ab0aabcdf8c29ad5693ca595af19dd2ead09939"
-  integrity sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==
 
 minimatch@^3.1.2:
   version "3.1.2"
@@ -5767,21 +5757,6 @@ rehype-katex@^7.0.1:
     hast-util-from-html-isomorphic "^2.0.0"
     hast-util-to-text "^4.0.0"
     katex "^0.16.0"
-    unist-util-visit-parents "^6.0.0"
-    vfile "^6.0.0"
-
-rehype-mermaid@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/rehype-mermaid/-/rehype-mermaid-3.0.0.tgz#e7e39dcfc2700dcd0c4f0bcf30840ff2180115aa"
-  integrity sha512-fxrD5E4Fa1WXUjmjNDvLOMT4XB1WaxcfycFIWiYU0yEMQhcTDElc9aDFnbDFRLxG1Cfo1I3mfD5kg4sjlWaB+Q==
-  dependencies:
-    "@types/hast" "^3.0.0"
-    hast-util-from-html-isomorphic "^2.0.0"
-    hast-util-to-text "^4.0.0"
-    mermaid-isomorphic "^3.0.0"
-    mini-svg-data-uri "^1.0.0"
-    space-separated-tokens "^2.0.0"
-    unified "^11.0.0"
     unist-util-visit-parents "^6.0.0"
     vfile "^6.0.0"
 

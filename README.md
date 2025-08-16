@@ -2,7 +2,6 @@
 
 ```sh
 yarn
-npx playwright install --with-deps chromium # Mermaid
 
 yarn run dev
 ```

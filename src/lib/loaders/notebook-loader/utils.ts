@@ -27,6 +27,8 @@ export function convertNotebookToMarkdown(
 
 	const cells = nb?.cells || [];
 	const lines: string[] = [];
+
+	// Process cells and collect non-empty content
 	for (const cell of cells) {
 		if (
 			cell.cell_type !== CellType.Markdown &&
@@ -37,7 +39,10 @@ export function convertNotebookToMarkdown(
 
 		const src = joinText(cell.source);
 		if (cell.cell_type === CellType.Markdown) {
-			lines.push(src.trim(), "");
+			const trimmedSrc = src.trim();
+			if (trimmedSrc.length > 0) {
+				lines.push(trimmedSrc, "");
+			}
 			continue;
 		}
 
@@ -73,27 +78,38 @@ export function convertNotebookToMarkdown(
 			}
 		}
 
-		if (textOutputs.length > 0) {
-			lines.push("```" + lang + " withOutput");
-			const trimmedSrc = src.replace(/\n$/, "");
-			if (trimmedSrc.length > 0) {
-				const codeLines = trimmedSrc.split(/\r?\n/);
-				for (const codeLine of codeLines) {
-					lines.push("> " + codeLine);
+		// Only add code blocks if there's content or outputs
+		const hasContent = src.trim().length > 0;
+		const hasOutputs = textOutputs.length > 0 || imageOutputs.length > 0;
+
+		if (hasContent || hasOutputs) {
+			if (textOutputs.length > 0) {
+				lines.push("```" + lang + " withOutput");
+				const trimmedSrc = src.replace(/\n$/, "");
+				if (trimmedSrc.length > 0) {
+					const codeLines = trimmedSrc.split(/\r?\n/);
+					for (const codeLine of codeLines) {
+						lines.push("> " + codeLine);
+					}
 				}
+				lines.push("");
+				lines.push(textOutputs.join("\n"));
+				lines.push("```");
+			} else {
+				lines.push("```" + lang, src.replace(/\n$/, ""), "```");
 			}
+
+			for (const image of imageOutputs) {
+				lines.push(image);
+			}
+
 			lines.push("");
-			lines.push(textOutputs.join("\n"));
-			lines.push("```");
-		} else {
-			lines.push("```" + lang, src.replace(/\n$/, ""), "```");
 		}
+	}
 
-		for (const image of imageOutputs) {
-			lines.push(image);
-		}
-
-		lines.push("");
+	// Remove trailing empty lines
+	while (lines.length > 0 && lines[lines.length - 1] === "") {
+		lines.pop();
 	}
 
 	return { markdown: lines.join("\n"), frontmatter };

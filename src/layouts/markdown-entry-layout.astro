@@ -24,9 +24,7 @@ const { title, date, description, Content } = Astro.props as {
 					THX's Blog
 				</h1>
 			</a>
-			<div transition:name="mode-toggle">
-				<ModeToggle client:load />
-			</div>
+			<ModeToggle client:load />
 		</div>
 		<div>
 			<button
@@ -65,6 +63,15 @@ const { title, date, description, Content } = Astro.props as {
 	</Button>
 </BaseLayout>
 <script is:inline>
+	const dataTheme = document.documentElement.getAttribute("data-theme");
+	document.querySelectorAll(".mermaid-dark").forEach((el) => {
+		if (dataTheme === "dark") {
+			el.setAttribute("media", "all");
+		} else {
+			el.setAttribute("media", "none");
+		}
+	});
+
 	const handleClick = () => {
 		window.scrollTo(0, 0);
 	};
@@ -95,32 +102,5 @@ const { title, date, description, Content } = Astro.props as {
 		document.addEventListener("DOMContentLoaded", setup);
 	} else {
 		setup();
-	}
-</script>
-<script>
-	async function renderDiagrams(graphs: HTMLCollectionOf<Element>) {
-		const { default: mermaid } = await import("mermaid");
-		mermaid.initialize({
-			startOnLoad: false,
-			fontFamily: "var(--sans-font)",
-			theme: "default",
-		});
-
-		for (const graph of graphs) {
-			const content = graph.getAttribute("data-content");
-			if (!content) continue;
-			const svg = document.createElement("svg");
-			const id = (svg.id =
-				"mermaid-" + Math.round(Math.random() * 100000));
-			graph.appendChild(svg);
-			mermaid.render(id, content).then((result) => {
-				graph.innerHTML = result.svg;
-			});
-		}
-	}
-
-	const graphs = document.getElementsByClassName("mermaid");
-	if (document.getElementsByClassName("mermaid").length > 0) {
-		renderDiagrams(graphs);
 	}
 </script>

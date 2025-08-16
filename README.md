@@ -13,4 +13,4 @@ yarn run dev
 - Dark mode: https://github.com/shadcn-ui/ui/discussions/3528
 - Customizing rehype-autolink-headings: https://github.com/withastro/astro/issues/5001
 - Mermaid diagrams on Astro: https://dteather.com/blogs/astro-uml-diagrams/
-- https://docs.astro.build/en/guides/content-collections/
+- Content Collections: https://docs.astro.build/en/guides/content-collections/

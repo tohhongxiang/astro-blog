@@ -2,16 +2,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-[data-theme="dark"] .mermaid {
-	filter: invert(0.88);
-}
-
-.mermaid {
-	margin-bottom: 1.25rem;
-	display: flex;
-	justify-content: center;
-}
-
 .expressive-code {
 	margin-bottom: 1.25rem; /* Follow tailwind's paragraph sizing */
 }

@@ -8,11 +8,11 @@ import toTitleCase from "@/lib/to-title-case";
 import walk from "@/lib/walk";
 
 import { generateIdFromRelativePath } from "../shared";
-import { convertNotebookToMarkdown } from "./utils";
+import { convertMarkdownToStructured } from "./utils";
 
-export default function notebookLoader(baseDir: string): Loader {
+export default function markdownLoader(baseDir: string): Loader {
 	return {
-		name: "ipynb-loader",
+		name: "markdown-loader",
 		async load(context: LoaderContext) {
 			const cfgRoot = context.config.root;
 
@@ -21,26 +21,29 @@ export default function notebookLoader(baseDir: string): Loader {
 				base.pathname = `${base.pathname}/`;
 			const rootDir = fileURLToPath(base);
 
-			async function upsertIpynb(absPath: string) {
+			async function upsertMarkdown(absPath: string) {
 				const relFromBase = normalizeRelativePath(rootDir, absPath);
 				const id = generateIdFromRelativePath(relFromBase);
 
 				try {
 					const raw = await fs.readFile(absPath, "utf-8");
-					const baseName = path.basename(absPath, ".ipynb");
-					const result = convertNotebookToMarkdown(raw);
+					const baseName = path.basename(
+						absPath,
+						path.extname(absPath),
+					);
+					const result = convertMarkdownToStructured(raw);
 					if ("error" in result) {
 						context.logger?.warn?.(
-							`Skipping invalid notebook (JSON): ${relFromBase}`,
+							`Skipping invalid markdown: ${relFromBase}`,
 						);
 						return;
 					}
 
-					const markdown = result.markdown ?? "";
+					const content = result.content ?? "";
 					const frontmatter = result.frontmatter ?? {};
 
 					if (!frontmatter.title) {
-						const firstLine = markdown.split("\n")[0];
+						const firstLine = content.split("\n")[0];
 						const firstLineMatch = firstLine?.match(/^#\s*(.*)/);
 						frontmatter.title =
 							firstLineMatch?.[1] ||
@@ -56,7 +59,7 @@ export default function notebookLoader(baseDir: string): Loader {
 						}
 					}
 
-					const rendered = await context.renderMarkdown(markdown);
+					const rendered = await context.renderMarkdown(content);
 					const parsedData = await context.parseData({
 						id,
 						data: { ...frontmatter, relativeFilePath: relFromBase },
@@ -73,7 +76,7 @@ export default function notebookLoader(baseDir: string): Loader {
 						data: parsedData,
 						body: rendered.html,
 						filePath: relToRoot,
-						digest: context.generateDigest(markdown),
+						digest: context.generateDigest(content),
 						rendered,
 						assetImports: rendered.metadata?.imagePaths,
 					});
@@ -89,9 +92,10 @@ export default function notebookLoader(baseDir: string): Loader {
 			const files: string[] = [];
 			for await (const abs of walk(rootDir)) {
 				if (abs.startsWith(".")) continue;
-				if (abs.toLowerCase().endsWith(".ipynb")) files.push(abs);
+				const ext = path.extname(abs).toLowerCase();
+				if (ext === ".md" || ext === ".mdx") files.push(abs);
 			}
-			await Promise.all(files.map(upsertIpynb));
+			await Promise.all(files.map(upsertMarkdown));
 
 			// Watch mode
 			if (!context.watcher) {
@@ -102,13 +106,15 @@ export default function notebookLoader(baseDir: string): Loader {
 
 			const onChange = async (changedPath: string) => {
 				if (!changedPath.startsWith(rootDir)) return;
-				if (changedPath.toLowerCase().endsWith(".ipynb"))
-					await upsertIpynb(changedPath);
+				const ext = path.extname(changedPath).toLowerCase();
+				if (ext === ".md" || ext === ".mdx")
+					await upsertMarkdown(changedPath);
 			};
 
 			const onUnlink = async (deletedPath: string) => {
 				if (!deletedPath.startsWith(rootDir)) return;
-				if (deletedPath.toLowerCase().endsWith(".ipynb")) {
+				const ext = path.extname(deletedPath).toLowerCase();
+				if (ext === ".md" || ext === ".mdx") {
 					const relFromBase = normalizeRelativePath(
 						rootDir,
 						deletedPath,

@@ -6,11 +6,6 @@ import {
 	type RawNotebook,
 } from "./types";
 
-export function generateIdFromRelativePath(rel: string): string {
-	const noExt = rel.replace(/\.[^/.]+$/, "");
-	return noExt.replace(/\\/g, "/");
-}
-
 export function convertNotebookToMarkdown(
 	json: string,
 ): NotebookToMarkdownResult {

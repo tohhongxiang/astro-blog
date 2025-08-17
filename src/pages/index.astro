@@ -5,13 +5,23 @@ import PostItem from "@/components/post-item";
 import NoteItem from "@/components/note-item";
 import { getCollection } from "astro:content";
 
-const posts = (await getCollection("blog")).sort((a, b) => {
-	return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-});
+const RECENT_COUNT = 5;
 
-const notes = (await getCollection("notes")).sort((a, b) => {
-	return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-});
+const posts = (await getCollection("blog"))
+	.sort((a, b) => {
+		return (
+			new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+		);
+	})
+	.slice(0, RECENT_COUNT);
+
+const notes = (await getCollection("notes"))
+	.sort((a, b) => {
+		return (
+			new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+		);
+	})
+	.slice(0, RECENT_COUNT);
 ---
 
 <BaseLayout title="THX">

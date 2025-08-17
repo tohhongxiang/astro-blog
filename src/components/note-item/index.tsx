@@ -23,12 +23,11 @@ export default function NoteItem({ note }: { note: Note }) {
 					<span className="font-semibold group-hover:underline">
 						{note.data.title}
 					</span>
-					{note.filePath && (
+					{note.data.relativeFilePath && (
 						<p className="text-xs text-muted-foreground">
-							{note.filePath
+							{note.data.relativeFilePath
 								.split("/")
 								.filter(Boolean)
-								.slice(1)
 								.join(" > ")}
 						</p>
 					)}

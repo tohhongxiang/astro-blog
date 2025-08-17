@@ -58,7 +58,7 @@ export default function notebookLoader(baseDir: string): Loader {
 					const rendered = await context.renderMarkdown(markdown);
 					const parsedData = await context.parseData({
 						id,
-						data: frontmatter,
+						data: { ...frontmatter, relativeFilePath: relFromBase },
 						filePath: absPath,
 					});
 

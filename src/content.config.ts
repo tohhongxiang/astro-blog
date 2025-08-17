@@ -14,6 +14,7 @@ const blog = defineCollection({
 		title: z.string(),
 		date: z.coerce.date(),
 		description: z.string().optional(),
+		relativeFilePath: z.string().optional(),
 	}),
 });
 
@@ -26,6 +27,7 @@ const notes = defineCollection({
 		title: z.string(),
 		date: z.coerce.date(),
 		description: z.string().optional(),
+		relativeFilePath: z.string().optional(),
 	}),
 });
 

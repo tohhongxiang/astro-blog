@@ -1,12 +1,6 @@
 ---
 import BaseLayout from "@/layouts/base-layout.astro";
 import Header from "@/components/header/index.astro";
-
-interface Props {
-	active: "date" | "folders";
-}
-
-const { active } = Astro.props as Props;
 ---
 
 <BaseLayout title="THX">
@@ -18,32 +12,8 @@ const { active } = Astro.props as Props;
 			/>
 		</section>
 		<section>
-			<div class="mb-2 flex items-center justify-between px-4">
+			<div class="mb-4 px-4">
 				<h2 class="text-2xl font-bold">All Notes</h2>
-				<nav class="flex gap-2 text-sm">
-					<a
-						href="/notes/"
-						class={`rounded px-2 py-1 ${
-							active === "date"
-								? "bg-muted/60 text-foreground"
-								: "text-muted-foreground hover:bg-muted/40"
-						}`}
-						aria-current={active === "date" ? "page" : undefined}
-					>
-						By date
-					</a>
-					<a
-						href="/notes/folders/"
-						class={`rounded px-2 py-1 ${
-							active === "folders"
-								? "bg-muted/60 text-foreground"
-								: "text-muted-foreground hover:bg-muted/40"
-						}`}
-						aria-current={active === "folders" ? "page" : undefined}
-					>
-						By folder
-					</a>
-				</nav>
 			</div>
 
 			<slot />

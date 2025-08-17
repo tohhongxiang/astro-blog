@@ -1,6 +1,6 @@
 ---
 import NotesLayout from "@/layouts/notes-layout.astro";
-import NoteItem from "@/components/note-item";
+import NotesSearch from "@/components/notes/search";
 import { getCollection } from "astro:content";
 
 const notes = (await getCollection("notes")).sort((a, b) => {
@@ -8,8 +8,8 @@ const notes = (await getCollection("notes")).sort((a, b) => {
 });
 ---
 
-<NotesLayout active="date">
-	<div>
-		{notes.map((note) => <NoteItem note={note} />)}
+<NotesLayout>
+	<div class="mb-6 px-4">
+		<NotesSearch notes={notes} client:load />
 	</div>
 </NotesLayout>

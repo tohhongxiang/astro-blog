@@ -15,3 +15,7 @@ yarn run dev
 - Content Collections: https://docs.astro.build/en/guides/content-collections/
 - https://github.com/withastro/astro/issues/4433
 - https://github.com/joesaby/astro-mermaid
+
+# TODOs
+
+[] Fix dark mode not persisting when: User goes to page -> User switches theme -> User goes back

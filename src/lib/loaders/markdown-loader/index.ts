@@ -1,46 +1,53 @@
-import {
-	type Loader,
-	type LoaderContext,
-	glob as globLoader,
-} from "astro/loaders";
-import { fileURLToPath } from "node:url";
+import { type Loader } from "astro/loaders";
+import { promises as fs } from "node:fs";
+import path from "node:path";
 
 import normalizeRelativePath from "@/lib/normalize-relative-path";
+import toTitleCase from "@/lib/to-title-case";
+
+import globWithParser from "../glob-with-parser";
 
 export default function markdownLoader(baseDir: string): Loader {
-	return {
-		name: "markdown-loader",
-		async load(context: LoaderContext) {
-			const base = new URL(baseDir, context.config.root);
+	return globWithParser({
+		pattern: ["**/*.md", "**/*.mdx"],
+		base: baseDir,
+		parser: async (entry) => {
+			if (!entry.filePath) {
+				return entry;
+			}
 
-			// Use Astro's proven glob loader for the core functionality
-			const mdGlob = globLoader({
-				pattern: ["**/*.md", "**/*.mdx"],
-				base,
-			});
-			await mdGlob.load(context);
+			const relToBaseDir = normalizeRelativePath(baseDir, entry.filePath);
+			(entry.data as Record<string, unknown>).relativeFilePath =
+				relToBaseDir;
 
-			// Add our custom metadata to each entry
-			const allEntries = Array.from(context.store.entries());
-			const baseDirPath = fileURLToPath(base);
+			if (!entry.data.title) {
+				const raw = await fs.readFile(entry.filePath, "utf-8");
+				const firstLine = raw
+					.replace(/^---\r?\n[\s\S\r\n]*?---(\r?\n)*/, "")
+					.split("\n")[0];
+				const firstLineMatch = firstLine?.match(/^#\s*(.*)/);
 
-			allEntries.forEach(([, entry]) => {
-				if (entry.filePath) {
-					const relFromBase = normalizeRelativePath(
-						baseDirPath,
-						entry.filePath,
+				(entry.data as Record<string, unknown>).title =
+					firstLineMatch?.[1]?.trim() ||
+					toTitleCase(
+						entry.id.split(path.sep).pop()?.replace(/-/g, " ") ??
+							"",
 					);
+			}
 
-					// Add relativeFilePath to the data
-					entry.data = {
-						...entry.data,
-						relativeFilePath: relFromBase,
-					};
-
-					// Update the store with the modified entry
-					context.store.set(entry);
+			if (!entry.data.date) {
+				let date = new Date().toISOString();
+				try {
+					const st = await fs.stat(entry.filePath);
+					date = new Date(st.mtime).toISOString();
+				} catch {
+					date = new Date().toISOString();
 				}
-			});
+
+				(entry.data as Record<string, unknown>).date = date;
+			}
+
+			return entry;
 		},
-	};
+	});
 }

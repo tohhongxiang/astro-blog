@@ -15,6 +15,7 @@ yarn run dev
 - Content Collections: https://docs.astro.build/en/guides/content-collections/
 - https://github.com/withastro/astro/issues/4433
 - https://github.com/joesaby/astro-mermaid
+- https://stackoverflow.com/questions/79293076/with-astro-v5-content-collections-how-to-modify-markdown-entries-before-theyre
 
 # TODOs
 

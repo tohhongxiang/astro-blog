@@ -25,7 +25,7 @@ export default function NotesSearch({ notes }: SearchProps) {
 		const searchTerm = query.toLowerCase();
 		return notes.filter(
 			(note) =>
-				note.data.title.toLowerCase().includes(searchTerm) ||
+				(note.data.title?.toLowerCase() || "").includes(searchTerm) ||
 				note.id.toLowerCase().includes(searchTerm),
 		);
 	}, [query, notes]);

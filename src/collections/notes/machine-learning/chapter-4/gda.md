@@ -2,6 +2,7 @@
 title: "Chapter 4: Gaussian Discriminant Analysis"
 date: 2025-08-08
 ---
+
 We go throught the Gaussian Discriminant Analysis (GDA) covered in [Lecture 5](https://www.youtube.com/watch?v=nt63k3bfXS0&list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU&index=5).
 
 GDA is used for a classification problem, where your dataset is $\{(\mathbf{x}^{(i)}, y^{(i)})\}_{i=1}^n$, where $\mathbf{x}^{(i)} \in \mathbb{R}^d$, and $y \in \{0, ..., K - 1\}$. The goal is: Given a new $\mathbf{x}$, figure out which class $y$ it belongs to.

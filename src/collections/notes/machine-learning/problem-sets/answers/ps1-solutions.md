@@ -213,8 +213,8 @@ $$
 \begin{align*}
 P(y = 1 \mid x; \theta) &= \frac{\phi \exp\left( -\frac{1}{2} (x - \mu_1)^T \Sigma^{-1} (x - \mu_1) \right)}{(1 - \phi) \exp\left( -\frac{1}{2} (x - \mu_0)^T \Sigma^{-1} (x - \mu_0) \right) + \phi \exp\left( -\frac{1}{2} (x - \mu_1)^T \Sigma^{-1} (x - \mu_1) \right)} \\
 &= \frac{1}{1 + \frac{1-\phi}{\phi} \exp \left( -\frac{1}{2}((x - \mu_0)^T \Sigma^{-1} (x - \mu_0) - (x - \mu_1)^T \Sigma^{-1} (x - \mu_1)) \right)} \\
-&= \frac{1}{1 + \frac{1 - \phi}{\phi} \exp \left( - (\mu_1 - \mu_0)^T \Sigma^{-1} x  -\frac{1}{2} \mu_0^T \Sigma^{-1} \mu_0 + \frac{1}{2} \mu_1 \Sigma^{-1} \mu_1 \right)} \\
-&= \frac{1}{1 + \exp \left( - (\mu_1 - \mu_0)^T \Sigma^{-1} x - \frac{1}{2} \mu_0^T \Sigma^{-1} \mu_0 + \frac{1}{2} \mu_1 \Sigma^{-1} \mu_1 + \log \frac{1 - \phi}{\phi} \right)} \\
+&= \frac{1}{1 + \frac{1 - \phi}{\phi} \exp \left( - (\mu_1 - \mu_0)^T \Sigma^{-1} x  -\frac{1}{2} \mu_0^T \Sigma^{-1} \mu_0 + \frac{1}{2} \mu_1^T \Sigma^{-1} \mu_1 \right)} \\
+&= \frac{1}{1 + \exp \left( - (\mu_1 - \mu_0)^T \Sigma^{-1} x - \frac{1}{2} \mu_0^T \Sigma^{-1} \mu_0 + \frac{1}{2} \mu_1^T \Sigma^{-1} \mu_1 + \log \frac{1 - \phi}{\phi} \right)} \\
 &= \frac{1}{1 + \exp \left( -(\theta^T x + \theta_0) \right)}
 \end{align*}
 $$
@@ -227,7 +227,7 @@ We can see that:
 $$
 \begin{align*}
 \theta &= \Sigma^{-1} (\mu_1 - \mu_0) \\
-\theta_0 &= \frac{1}{2} \mu_0^T \Sigma^{-1} \mu_0 - \frac{1}{2} \mu_1 \Sigma^{-1} \mu_1 + \log \frac{\phi}{1 - \phi}
+\theta_0 &= \frac{1}{2} \mu_0^T \Sigma^{-1} \mu_0 - \frac{1}{2} \mu_1^T \Sigma^{-1} \mu_1 + \log \frac{\phi}{1 - \phi}
 \end{align*}
 $$
 - Note: $(\Sigma^{-1})^T = \Sigma^{-1}$ due to it being symmetric

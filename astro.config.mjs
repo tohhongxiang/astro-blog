@@ -21,7 +21,7 @@ export default defineConfig({
 			autoTheme: true,
 		}),
 		expressiveCode({
-			themes: ["one-dark-pro", "one-light"],
+			themes: ["monokai", "one-light"],
 			themeCssSelector: (theme) => `[data-theme='${theme.type}']`,
 			useDarkModeMediaQuery: false,
 			styleOverrides: {

@@ -1,5 +1,7 @@
 # 49. Lowest Common Ancestor in Binary Search Tree
 
+https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/submissions/1896719821/
+
 Given a binary search tree (BST) where all node values are unique, and two nodes from the tree `p` and `q`, return the lowest common ancestor (LCA) of the two nodes.
 
 The lowest common ancestor between two nodes `p` and `q` is the lowest node in a tree `T` such that both `p` and `q` as descendants. The ancestor is allowed to be a descendant of itself.
